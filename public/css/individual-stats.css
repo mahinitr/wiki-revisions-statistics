@@ -1,0 +1,23 @@
+.chart-style{
+    width: 900px; height: 400px;
+}
+
+
+#info-container {
+}
+
+#individual-stats, #tabular-chart {
+    padding-left: 50px;
+}
+
+
+#individual-charts{
+}
+
+table{
+    border-collapse: collapse;
+}
+
+#tabular-chart table, th, td{
+    border: 1px solid black;
+}
