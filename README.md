@@ -26,7 +26,7 @@ Please edit the file db/config.json, update the dataset_path as this path. (Ex: 
 2. cd to folder wiki-articles-revisions.
 3. Make sure you have the node installed on your system.
 4. Then run: *node app.js <port>* to start the app. Ex: *node app.js 3000*
-5. Then open the URL "http://<server_hostname>:<port>" (Ex: http://localhost:3000) in browser to access the UI.(If you cloned the code to VM, you can give the VM name instead of localhost).
+5. Then open the URL "http://<server_hostname>:<server_port>" (Ex: http://localhost:3000) in browser to access the UI.(If you cloned the code to VM, you can give the VM name instead of localhost).
 
 ## Contact:
 If you need any help running the app, please contact me @ mahi.nitr@gmail.com
