@@ -1,4 +1,6 @@
 """
+Before running, Please update the following variables
+DB_HOST, DB_PORT and DATA_FOLDER
 run "python load_data.py "
 
 """
@@ -8,13 +10,17 @@ import json
 import datetime
 import time
 from pymongo import MongoClient
+from pymongo.errors import DuplicateKeyError, BulkWriteError
+
+DB_HOST = "localhost"
+DB_PORT = 27017
 
 DB_NAME = "wiki"
 ADMINS_COLL = "admins"
 BOTS_COLL = "bots"
 ARTICLES_COLL = "articles"
 
-DATA_FOLDER = "./data"
+DATA_FOLDER = "/home/mahesh/wiki-data"
 REVISIONS_FOLDER = "revisions"
 ADMIN_FILE = "admin.txt"
 BOT_FILE = "bot.txt"
@@ -33,6 +39,8 @@ def load_admins(db):
             content = fp.readlines()
         admins = [x.strip() for x in content]
         coll.insert_many([{"_id":admin} for admin in admins])
+    except BulkWriteError, e:
+        print("Error - " + str(e))
     except Exception, e:
         print(e)
         print(traceback.format_exc())
@@ -47,6 +55,8 @@ def load_bots(db):
             content = fp.readlines()
         bots = [x.strip() for x in content]
         coll.insert_many([{"_id":bot} for bot in bots])
+    except BulkWriteError, e:
+        print("Error - " + str(e))
     except Exception, e:
         print(e)
         print(traceback.format_exc())
@@ -76,22 +86,24 @@ def load_revisions(db, admins, bots):
                 if "anon" in rec:
                     usertype = "anon"
                 elif "user" in rec:
-                    if str(rec["user"]) in bots:
+                    if rec["user"] in bots:
                         usertype = "bot"
-                    elif str(rec["user"]) in admins:
+                    elif rec["user"] in admins:
                         usertype = "admin"
                 rec["usertype"] = usertype
                 doc["revisions"].append(rec)
             coll.insert(doc)
+        except DuplicateKeyError, e:
+            print("DuplicateKey error - " + str(e))
 
         except Exception, e:
-            print("Error while reading file %s : %s", f_path, e)
+            print("Error while reading file {} : {}".format(f_path, e))
             print(traceback.format_exc())
             
         
 if __name__ == "__main__":
     start = time.time()
-    client = MongoClient()
+    client = MongoClient(DB_HOST, DB_PORT)
     db = client["wiki"]
     admins = load_admins(db)
     bots = load_bots(db)

@@ -5,7 +5,7 @@
 */
 
 var mongodb_url = "localhost"; //db hostname or ip address or URL
-var dataset_path = "./data"; // Path for the data sets to load. This should contain the revisions folder, admin.txt & bot.txt files.
+var dataset_path = "/home/mahesh/wiki-data"; // Path for the data sets to load. This should contain the revisions folder, admin.txt & bot.txt files.
 var revisions_dir = "revisions";
 var amdin_file = "admin.txt"
 var bot_file = "bot.txt";

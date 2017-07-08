@@ -1,6 +1,6 @@
 /*
 Steps to to load the import data.
-1. Have mongodb setup ready and create a database 'wikirevisions'
+1. Have mongodb installed locally or remotely
 2. Edit the file config.js under db folder
 3. Change the variables'values to appropriate values
 4. Then run : node import_data.js
